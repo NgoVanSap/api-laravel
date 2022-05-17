@@ -17,8 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.admin_login_register.admin-login');
-        
-        return view('');
+
     }
     public function postLoginAdmin(Request  $request) {
 
