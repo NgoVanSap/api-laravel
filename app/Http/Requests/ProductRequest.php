@@ -26,6 +26,7 @@ class ProductRequest extends FormRequest
         return [
             'name'                  => 'required',
             'price'                 => 'required|numeric',
+            'price_sale'            => 'required|numeric',
             'infomation'            => 'required',
             'image'                 => 'required|image',
             'product_type_id'       => 'required',
@@ -38,6 +39,8 @@ class ProductRequest extends FormRequest
             'name.required'                 => 'Tên sản phẩm không để trống',
             'price.required'                => 'Giá tiền không để trống',
             'price.numeric'                 => 'Giá tiền phải nhập bằng số',
+            'price_sale.required'           => 'Giá khuyến mãi không để trống',
+            'price_sale.numeric'            => 'Giá khuyến mãi phải nhập bằng số',
             'image.required'                => 'Ảnh không để trống',
             'image.image'                   => 'Phải chọn ảnh',
             'product_type_id.required'      => 'Hãy chọn danh mục',

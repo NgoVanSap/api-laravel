@@ -54,7 +54,19 @@
                                     </tr>
                                 </thead>
                                 <tbody id="mytable">
+                                    <tr id="Garrett Winters">
+                                        <td><span class="tabledit-span tabledit-identifier">Garrett Winters</span><input class="tabledit-input tabledit-identifier" type="hidden" name="id" value="Garrett Winters" disabled=""></td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">System Architect</span><input class="tabledit-input form-control input-sm" type="text" name="car" value="System Architect" style="display: none;" disabled=""></td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">Edinburgh</span><input class="tabledit-input form-control input-sm" type="text" name="color" value="Edinburgh" style="display: none;" disabled=""></td>
+                                        <td>61</td>
+                                        <td>2011/04/25</td>
+                                        <td>$320,800</td>
+                                    <td style="white-space: nowrap; width: 1%;"><div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
+                           <div class="btn-group btn-group-sm" style="float: none;"><button type="button" class="tabledit-edit-button btn btn-sm btn-primary" style="float: none;"><span class="fa fa-pencil"></span> &nbsp; EDIT</button></div>
 
+
+
+                       </div></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -181,6 +193,7 @@
                 }
             });
         });
+
         $("#btn-namecategory_edit").on("click", function () {
             var id           = $("#namecategory_id").val();
             var namecategory = $("#namecategory_edit").val();
@@ -196,8 +209,8 @@
                 data: data,
                 success: function (res) {
                    if(res.data) {
-                       getData();
                        toastr.success('Edit thành công');
+                       getData();
                    } else {
                        toastr.error('Edit thất bại');
                    }

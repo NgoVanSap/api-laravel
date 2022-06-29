@@ -17,7 +17,7 @@ class DanhMucController extends Controller
     public function index()
     {
         $adminUser = Auth::guard('admin')->user();
-        return view('admin.admin_DanhMuc.Category',['user' => $adminUser]);
+        return view('adminMaster.Admin-category.category',['user' => $adminUser]);
     }
 
     /**
@@ -41,13 +41,14 @@ class DanhMucController extends Controller
 
     public function createPostAjax(Request $request)
     {
-        
+
 
         $validate = $request->validate([
-            'namecategory' => 'required'
+            'namecategory' => 'required|unique:danh_mucs'
         ],
         [
             'namecategory.required' => 'Danh mục không bỏ trống',
+            'namecategory.unique' => 'Tên danh mục đã tồn tại',
 
         ]);
 
@@ -106,15 +107,20 @@ class DanhMucController extends Controller
     public function update(Request $request)
     {
         $validate = $request->validate([
-            'namecategory' => 'required'
+            'namecategory'          => 'required|unique:danh_mucs'
         ],
         [
             'namecategory.required' => 'Danh mục không bỏ trống',
+            'namecategory.unique'   => 'Tên danh mục đã tồn tại',
 
         ]);
 
         $data = DanhMuc::find($request->id)->update($request->all());
-        return response()->json(['data' => $data]);
+        return response()->json([
+
+            'data' => $data
+
+        ]);
     }
 
     /**
@@ -127,9 +133,19 @@ class DanhMucController extends Controller
     {
         $data = DanhMuc::find($id);
         if($data) {
-            return response()->json(['status' => true , 'data' => $data]);
+            return response()->json([
+
+                'status' => true ,
+                'data' => $data
+
+            ]);
+
         } else {
-            return response()->json(['status' => false]);
+            return response()->json([
+
+                'status' => false
+
+            ]);
         }
     }
     public function destroyAjax($id)
@@ -137,11 +153,18 @@ class DanhMucController extends Controller
         $delete = DanhMuc::find($id);
         if($delete) {
             $delete->delete();
-            return response()->json(['status' => true]);
-        } else {
-            return response()->json(['status' => false]);
-        }
+            return response()->json([
 
+                'status' => true
+            ]);
+
+        } else {
+            return response()->json([
+
+                'status' => false
+
+            ]);
+        }
         return redirect()->route('category.admin');
     }
 }

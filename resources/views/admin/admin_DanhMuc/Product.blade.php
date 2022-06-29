@@ -50,7 +50,7 @@
                                                                             @php
                                                                                   $render = array_reverse($data->all());
                                                                             @endphp
-                                                                            @foreach ($render as $category))
+                                                                            @foreach ($render as $category)
 
                                                                             <option value="{{ $category->id }}">{{ $category->namecategory }}</option>
 
@@ -91,7 +91,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Tất Cả Danh Mục</h4>
+                            <h4 class="card-title">Tất Sản Phẩm</h4>
                         </div>
                         <div class="card-content" style="height: 500px !important; overflow: auto;">
                             <!-- table head dark -->
@@ -99,12 +99,69 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" style="text-align: center;">#</th>
-                                        <th scope="col">Name Danh Mục</th>
+                                        <th scope="col" style="text-align: center;">Name Sản Phẩm</th>
+                                        <th scope="col" style="text-align: center;">Price</th>
+                                        <th scope="col" style="text-align: center;">Thông tin chi tiết</th>
+                                        <th scope="col" style="text-align: center;">Loai danh mục</th>
+                                        <th scope="col" style="text-align: center;">Hình ảnh</th>
+                                        <th scope="col" style="text-align: center;">Tình Trạng</th>
                                         <th scope="col" style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="mytable">
+                                    @foreach ($dataProdutc as $value )
+                                    <tr>
+                                        <th scope="row" style="text-align: center;">{{ $value->id }}</th>
+                                        <td style="width:216px;">{{ $value->name }}</td>
+                                        <td>${{ number_format($value->price, 2) }}</td>
+                                        <td style="width: 669px;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            line-height: 25px;
+                                            -webkit-line-clamp: 6;
+                                            height: 163px;
+                                            display: -webkit-box;
+                                            -webkit-box-orient: vertical;"
+                                        >{{ $value->infomation }}</td>
+                                        @foreach ( $render as $category )
+                                            @php
+                                                if ($value->product_type_id == $category->id) {
+                                                    $varcategories = $category->namecategory;
+                                                }
+                                            @endphp
+                                        @endforeach
 
+                                        <td>{{ $varcategories }}</td>
+                                        <td>
+                                            <img src="{{ asset('/' . $value->image) }}" alt="" style="height: 150px;width: 100px;">
+                                        </td>
+                                        @php
+                                            $var = $value->is_open ? 'Hết hàng' : 'Còn hàng';
+                                        @endphp
+                                        <td style="text-align:center;">
+                                                @if ($value->is_open == 0)
+                                                <button type="button" style="height: 19px;
+                                                font-size: 11px;
+                                                padding: 0 9px;" class="btn btn-success">{{ $var }}</button>
+                                                @else
+                                                <button type="button" style="height: 19px;
+                                                font-size: 11px;
+                                                padding: 0 9px;" class="btn btn-danger">{{ $var }}</button>
+                                                @endif
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="{{ route('product.delete',['id' => $value->id]) }}" class="delete" style="margin-right: 20px;" data-id="7">
+                                                <svg xmlns="http://www.w3.org/2000/svg" style="color: red;" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -163,9 +220,7 @@
         @foreach ($errors->all() as $error)
 
             $(document).ready(function(){
-
-          $().focus();
-          toastr.error("{{ $error }}");
+                toastr.error("{{ $error }}");
         });
         @endforeach
     @endif

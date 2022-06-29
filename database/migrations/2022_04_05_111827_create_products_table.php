@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug_name')->unique();
             $table->double('price');
+            $table->double('price_sale');
             $table->text('infomation');
             $table->string('image');
             $table->integer('product_type_id')->default(0);

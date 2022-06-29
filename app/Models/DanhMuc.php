@@ -14,4 +14,6 @@ class DanhMuc extends Model
     protected $fillable = [
         'namecategory'
     ];
+
+
 }

@@ -13,6 +13,7 @@ class Product extends Model
         'name',
         'slug_name',
         'price',
+        'price_sale',
         'infomation',
         'image',
         'product_type_id',
@@ -27,4 +28,11 @@ class Product extends Model
             ]
         ];
     }
+
+    public function attribute() {
+
+        return $this->hasMany(Attribute::class,'product_id');
+
+    }
+
 }
